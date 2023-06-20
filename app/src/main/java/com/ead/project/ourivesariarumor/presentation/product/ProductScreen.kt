@@ -101,10 +101,11 @@ fun ProductScreen(
             Spacer(modifier = Modifier.height(16.dp))
             RowItems(
                 modifier = Modifier
-                    .height(100.dp),
+                    .fillMaxWidth()
+                    .height(82.dp),
                 items = product.categories,
-                withItem = 100.dp,
-                heightItem = 84.dp
+                heightItem = 64.dp,
+                withItem = 160.dp
             )
             Spacer(modifier = Modifier.height(16.dp))
             ProductDetailsPreview(

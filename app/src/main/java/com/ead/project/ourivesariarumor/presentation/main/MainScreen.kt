@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,7 +21,8 @@ import com.ead.project.ourivesariarumor.presentation.shopping_cart.ShoppingCartS
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel = hiltViewModel()
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
     Scaffold(

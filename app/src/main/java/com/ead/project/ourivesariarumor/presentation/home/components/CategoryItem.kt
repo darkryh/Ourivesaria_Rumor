@@ -25,7 +25,60 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ead.project.ourivesariarumor.R
 import com.ead.project.ourivesariarumor.domain.model.Category
+import com.ead.project.ourivesariarumor.domain.model.CategoryItem
+
+@Composable
+fun CategoryItem(
+    modifier: Modifier = Modifier,
+    categoryItem: CategoryItem,
+    onClick : () -> Unit,
+    shape : Shape = CircleShape
+) {
+    Box(
+        modifier = modifier
+            .border(
+                BorderStroke(0.5.dp, MaterialTheme.colorScheme.surfaceVariant),
+                shape
+            )
+            .background(MaterialTheme.colorScheme.surface, shape)
+            .clip(shape)
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            modifier = modifier
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape)
+                    .padding(8.dp)
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .width(24.dp)
+                        .height(24.dp),
+                    painter = painterResource(id = categoryItem.drawableRes),
+                    contentDescription = categoryItem.contentDescription
+                )
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = categoryItem.title,
+                textAlign = TextAlign.Center,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1
+            )
+        }
+    }
+
+}
 
 @Composable
 fun CategoryItem(
@@ -60,8 +113,8 @@ fun CategoryItem(
                     modifier = Modifier
                         .width(24.dp)
                         .height(24.dp),
-                    painter = painterResource(id = category.drawableRes),
-                    contentDescription = category.contentDescription
+                    painter = painterResource(id = R.drawable.ic_diamond),
+                    contentDescription = category.description
                 )
             }
 

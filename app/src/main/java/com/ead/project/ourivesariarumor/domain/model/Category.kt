@@ -1,9 +1,11 @@
 package com.ead.project.ourivesariarumor.domain.model
 
-import androidx.annotation.DrawableRes
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Category(
+    val id : Long,
     val title : String,
-    @DrawableRes val drawableRes: Int,
-    val contentDescription : String
-)
+    val description : String
+) : Parcelable

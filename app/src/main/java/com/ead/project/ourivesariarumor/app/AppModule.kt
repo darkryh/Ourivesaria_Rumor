@@ -1,6 +1,13 @@
-package com.ead.project.ourivesariarumor.core.di
+package com.ead.project.ourivesariarumor.app
 
 import android.content.Context
+import androidx.room.Room
+import com.ead.project.ourivesariarumor.data.database.CartDao
+import com.ead.project.ourivesariarumor.data.database.OrderDao
+import com.ead.project.ourivesariarumor.data.database.ProductDao
+import com.ead.project.ourivesariarumor.data.database.RumorDatabase
+import com.ead.project.ourivesariarumor.data.repository.AppRepository
+import com.ead.project.ourivesariarumor.data.repository.AppRepositoryImpl
 import com.ead.project.ourivesariarumor.data.repository.FirebaseClient
 import com.ead.project.ourivesariarumor.data.service.AuthenticationService
 import com.ead.project.ourivesariarumor.data.service.ProductService
@@ -18,6 +25,7 @@ import com.ead.project.ourivesariarumor.domain.use_case.authentication.verificat
 import com.ead.project.ourivesariarumor.domain.use_case.authentication.verification.UpdateVerificationTime
 import com.ead.project.ourivesariarumor.domain.use_case.authentication.verification.VerifyAccount
 import com.ead.project.ourivesariarumor.domain.use_case.inventory.AddProduct
+import com.ead.project.ourivesariarumor.domain.use_case.inventory.GetProducts
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +36,50 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideRoomInstance(
+        context: Context
+    ) : RumorDatabase = Room.databaseBuilder(
+        context,
+        RumorDatabase::class.java,
+        RumorDatabase.DATABASE
+    ).build()
+
+    @Provides
+    @Singleton
+    fun provideAppRepository(
+        productDao: ProductDao,
+        orderDao: OrderDao,
+        cartDao: CartDao
+    ) : AppRepository
+    = AppRepositoryImpl(
+        productDao = productDao,
+        orderDao = orderDao,
+        cartDao = cartDao
+    )
+
+    @Provides
+    @Singleton
+    fun provideProductDao(
+        database: RumorDatabase
+    ) : ProductDao
+    = database.productDao()
+
+    @Provides
+    @Singleton
+    fun provideOrderDao(
+        database: RumorDatabase
+    ) : OrderDao
+    = database.orderDao()
+
+    @Provides
+    @Singleton
+    fun provideCartDao(
+        database: RumorDatabase
+    ) : CartDao
+    = database.cartDao()
 
     @Provides
     @Singleton
@@ -92,6 +144,9 @@ object AppModule {
     fun provideInventoryUseCase(productService: ProductService) : InventoryUseCase {
         return InventoryUseCase(
             addProduct = AddProduct(
+                productService = productService
+            ),
+            getProducts = GetProducts(
                 productService = productService
             )
         )

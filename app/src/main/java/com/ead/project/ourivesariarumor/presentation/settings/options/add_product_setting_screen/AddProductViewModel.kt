@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ead.project.ourivesariarumor.app.data.util.system.hasOnlyNumbers
+import com.ead.project.ourivesariarumor.domain.model.Category
 import com.ead.project.ourivesariarumor.domain.model.Currency
 import com.ead.project.ourivesariarumor.domain.model.Product
 import com.ead.project.ourivesariarumor.domain.use_case.InventoryUseCase
@@ -147,7 +148,25 @@ class AddProductViewModel @Inject constructor (
                         price = productPrice,
                         quantity = productQuantity,
                         currency = Currency.EUR,
-                        categories = _productCategories.value
+                        categories = listOf(
+                            Category(
+                                id = 1,
+                                "category 1",
+                                "description 1"
+                            ),
+                            Category(
+                                id = 2,
+                                "category 2",
+                                "description 2"
+                            ),
+                            Category(
+                                id = 3,
+                                "category 3",
+                                "description 3"
+                            )
+                        ),
+                        requestedTimes = 0,
+                        popularityPoints = 0f
                     )
 
                     _eventFlow.emit(UiEvent.ShowSnackBar(

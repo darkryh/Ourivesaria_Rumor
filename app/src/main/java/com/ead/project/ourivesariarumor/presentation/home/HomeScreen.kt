@@ -5,16 +5,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ead.project.ourivesariarumor.presentation.home.components.RowItemsSection
 import com.ead.project.ourivesariarumor.presentation.home.components.SearchSection
 import com.ead.project.ourivesariarumor.presentation.main.components.RowItems
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val products = viewModel.products.collectAsState(initial = emptyList())
+
     LazyColumn(
         modifier = modifier
     ) {
@@ -39,7 +44,7 @@ fun HomeScreen(
             )
             RowItemsSection(
                 title = "Top products",
-                items = topProductsItems,
+                items = products.value,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(250.dp)
@@ -51,7 +56,7 @@ fun HomeScreen(
             )
             RowItemsSection(
                 title = "New products",
-                items = topProductsItems,
+                items = products.value,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(250.dp)
@@ -63,7 +68,7 @@ fun HomeScreen(
             )
             RowItemsSection(
                 title = "Refilled products",
-                items = topProductsItems,
+                items = products.value,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(250.dp)

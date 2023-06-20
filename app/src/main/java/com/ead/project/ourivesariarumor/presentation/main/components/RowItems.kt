@@ -14,8 +14,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.ead.project.ourivesariarumor.app.data.util.system.launchActivity
-import com.ead.project.ourivesariarumor.domain.model.Product
 import com.ead.project.ourivesariarumor.domain.model.Category
+import com.ead.project.ourivesariarumor.domain.model.Product
+import com.ead.project.ourivesariarumor.domain.model.CategoryItem
 import com.ead.project.ourivesariarumor.presentation.home.components.CategoryItem
 import com.ead.project.ourivesariarumor.presentation.home.components.ProductItem
 import com.ead.project.ourivesariarumor.presentation.product.ProductActivity
@@ -55,6 +56,15 @@ fun RowItems(
                         modifier = Modifier
                             .width(withItem)
                             .height(heightItem)
+                    )
+                }
+                is CategoryItem -> {
+                    CategoryItem(
+                        modifier = Modifier
+                            .width(withItem)
+                            .height(heightItem),
+                        categoryItem = item,
+                        onClick = {}
                     )
                 }
                 is Category -> {

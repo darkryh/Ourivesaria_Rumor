@@ -1,4 +1,4 @@
-package com.ead.project.ourivesariarumor
+package com.ead.project.ourivesariarumor.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

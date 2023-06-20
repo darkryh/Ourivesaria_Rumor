@@ -22,13 +22,24 @@ fun hashMap(userSignIn: UserSignIn) : HashMap<String,*> {
 }
 
 fun hashMap(product: Product) : HashMap<String,*> {
+    val categoryListMap = product.categories.map { category ->
+        hashMapOf(
+            "id" to category.id,
+            "title" to category.title,
+            "description" to category.description
+        )
+    }
+
     return hashMapOf(
         "name" to product.name,
         "description" to product.description,
         "image" to product.image,
         "price" to product.price,
         "quantity" to product.quantity,
-        "currency" to product.currency.symbol
+        "currency" to product.currency.symbol,
+        "categories" to categoryListMap,
+        "requestedTimes" to product.requestedTimes,
+        "popularityPoints" to product.popularityPoints.toString()
     )
 }
 
